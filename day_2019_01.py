@@ -2,15 +2,14 @@ from math import floor
 
 import aoc_helper as hlp
 
-def fuel_required_to_launch(mass):
-    mass = int(mass)
-    fuel = max(floor(mass / 3) - 2,0)
+from math import floor
+
+def fuel_required_to_launch_module(mass):
+    fuel = floor(mass / 3) - 2
+    fuel = max(fuel,0)
     return fuel
 
 def fuel_required_to_launch_exponential(mass):
-    
-    mass = int(mass)
-    
     total_fuel = 0
     fuel = max(floor(mass / 3) - 2,0)
     
@@ -20,12 +19,10 @@ def fuel_required_to_launch_exponential(mass):
     
     return total_fuel
 
-def total_fuel_required(module_masses:list):
-    
+def fuel_required_to_launch_ship(module_masses:list[int]):
     total_fuel_required = 0
     for module_mass in module_masses:
-        total_fuel_required += fuel_required_to_launch(module_mass)
-    
+        total_fuel_required += fuel_required_to_launch_module(module_mass)
     return total_fuel_required
 
 def total_fuel_required_exponential(module_masses:list):
@@ -39,8 +36,8 @@ def total_fuel_required_exponential(module_masses:list):
 
 if __name__ == "__main__":
     file = "inputs/2019_01_a.txt"
-    input = hlp.read_lines(file)
-    answer = total_fuel_required(input)
+    input = hlp.read_integers(file)
+    answer = fuel_required_to_launch_ship(input)
     print("Answer to part 1 of Day 1 is: ", answer)
 
     answer = total_fuel_required_exponential(input)
