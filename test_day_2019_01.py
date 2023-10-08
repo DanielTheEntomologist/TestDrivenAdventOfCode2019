@@ -1,5 +1,3 @@
-import pytest
-
 import day_2019_01 as d
 
 # I gather the tests in test Class for easier handling. 
