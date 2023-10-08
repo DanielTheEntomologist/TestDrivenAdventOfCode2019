@@ -29,10 +29,9 @@ class Test_2019_01_01:
         
 class Test_2019_01_02:
     def test_fuel_required_to_launch_exponential(self):
-        assert d.fuel_required_to_launch_exponential(1969)==966
-        assert d.fuel_required_to_launch_exponential(100756)==50346
+        assert d.fuel_required_to_launch_module_exponential(1969)==966
+        assert d.fuel_required_to_launch_module_exponential(100756)==50346
     
-    def test_total_fuel_required_exponential(self):
+    def test_fuel_required_to_launch_ship_exponential(self):
         module_masses = [1969,100756]
-
-        assert d.total_fuel_required_exponential(module_masses)==966+50346
+        assert d.fuel_required_to_launch_ship_exponential(module_masses)==966+50346
