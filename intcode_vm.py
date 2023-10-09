@@ -8,6 +8,8 @@ At the same time it speeds up my work significantly,
 so I am willing to accept this not being my 100% original bespoke code.
 """
 
+from copy import copy
+
 class IntCodeVM:
     """Emulator for the IntCode computer from Advent of Code 2019
 
@@ -45,7 +47,7 @@ class IntCodeVM:
         Args:
             program (list): List of integers representing the program memory.
         """
-        self.memory = program
+        self.memory = copy(program)
         self.instruction_pointer = 0
         self.opcode = None
         self.instruction_length = 4

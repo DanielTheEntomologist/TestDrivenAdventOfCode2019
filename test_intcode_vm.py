@@ -36,6 +36,11 @@ class TestIntcodeVM:
         vm.run()
         assert vm.memory == [30,1,1,4,2,5,6,0,99]
 
+    def test_program_not_mutated(self):
+        program = [1,0,0,0,99]
+        vm = intcode.IntCodeVM(program)
+        vm.step()
+        assert program == [1,0,0,0,99]
         
 
     
