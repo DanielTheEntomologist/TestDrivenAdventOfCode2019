@@ -46,9 +46,9 @@ class IntCodeVM:
             program (list): List of integers representing the program memory.
         """
         self.memory = program
-        self.position = 0
+        self.instruction_pointer = 0
         self.opcode = None
-        self.opcode_length = 4
+        self.instruction_length = 4
         self.state = "INIT"
 
     def run(self):
@@ -63,8 +63,8 @@ class IntCodeVM:
         """
         Execute a single step of the program.
         """
-        self.opcode = self.memory[self.position]
-
+        self.opcode = self.memory[self.instruction_pointer]
+        
         if self.opcode == 99:
             self.halt()
             return
@@ -74,7 +74,7 @@ class IntCodeVM:
         if self.opcode == 2:
             self.multiply()
             return
-
+        
         self.state = "ERROR"
         raise ValueError(f"Invalid opcode: {self.opcode}")
 
@@ -88,22 +88,42 @@ class IntCodeVM:
         """
         Execute an addition operation.
         """
-        pos_arg1 = self.memory[self.position + 1]
-        pos_arg2 = self.memory[self.position + 2]
-        pos_target = self.memory[self.position + 3]
-        arg1 = self.memory[pos_arg1]
-        arg2 = self.memory[pos_arg2]
-        self.memory[pos_target] = arg1 + arg2
-        self.position += self.opcode_length
+        # get full instruction from memory
+        instruction = self.memory[self.instruction_pointer : self.instruction_pointer+self.instruction_length]
+        # get instruction parameters
+        instruction_parameters = instruction[1:]
+        # get operation argument addresses
+        arg1_address = instruction_parameters[0]
+        arg2_address = instruction_parameters[1]
+        target_address = instruction_parameters[2]
+        # get operation arguments
+        arg1 = self.memory[arg1_address]
+        arg2 = self.memory[arg2_address]
+        # perform operation 
+        sum = arg1 + arg2
+        # store result
+        self.memory[target_address] = sum
+        # increment instruction pointer
+        self.instruction_pointer += self.instruction_length
 
     def multiply(self):
         """
         Execute a multiplication operation.
         """
-        pos_arg1 = self.memory[self.position + 1]
-        pos_arg2 = self.memory[self.position + 2]
-        pos_target = self.memory[self.position + 3]
-        arg1 = self.memory[pos_arg1]
-        arg2 = self.memory[pos_arg2]
-        self.memory[pos_target] = arg1 * arg2
-        self.position += self.opcode_length
+        # get full instruction from memory
+        instruction = self.memory[self.instruction_pointer : self.instruction_pointer+self.instruction_length]
+        # get instruction parameters
+        instruction_parameters = instruction[1:]
+        # get operation argument addresses
+        arg1_address = instruction_parameters[0]
+        arg2_address = instruction_parameters[1]
+        target_address = instruction_parameters[2]
+        # get operation arguments
+        arg1 = self.memory[arg1_address]
+        arg2 = self.memory[arg2_address]
+        # perform operation 
+        sum = arg1 * arg2
+        # store result
+        self.memory[target_address] = sum
+        # increment instruction pointer
+        self.instruction_pointer += self.instruction_length
