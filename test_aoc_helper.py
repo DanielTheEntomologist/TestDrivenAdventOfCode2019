@@ -1,4 +1,4 @@
-import aoc_helper as hlp
+from aoc_helper import aoc_helper as hlp
 
 class Test_aoc_helper:
     
