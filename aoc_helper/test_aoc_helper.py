@@ -1,4 +1,9 @@
-from aoc_helper import aoc_helper as hlp
+import os
+import sys
+# Add the parent directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
+import aoc_helper.aoc_helper as hlp
 
 class Test_aoc_helper:
     
